@@ -3,8 +3,8 @@
 Route::get('/',function () {
     
    
-     return view('welcome');
+     return view('child');
 
 });
-Route::get('/','TaskController@index');
-Route::get('task/{id}', 'TaskController@show');
+//Route::get('/','TaskController@index');
+//Route::get('task/{id}', 'TaskController@show');

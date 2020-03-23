@@ -6,8 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+<ul>
    @foreach($tasks as $task) 
    <h1><a href="/task/{{$task->id}}" > {{$task->name}}</a></h1>
    @endforeach
+   </ul>
 </body>
 </html>
