@@ -1,7 +1,10 @@
 <?php
 
-Route::get('/', function () {
-    $tasks =DB::table('tasks')->get();
-    return $tasks;
-     //return view('welcome'.compact('tasks'));
+Route::get('/',function () {
+    
+   
+     return view('welcome');
+
 });
+Route::get('/','TaskController@index');
+Route::get('task/{id}', 'TaskController@show');
