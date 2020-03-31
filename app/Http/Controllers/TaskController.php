@@ -42,4 +42,28 @@ class TaskController extends Controller
 
 
     }
+
+    public function edit1($id){
+        
+        $tasks =DB::table('tasks')->get();
+        $post =DB::table('tasks')->find($id);
+   
+        return view('tasks.index',compact('tasks','post'));
+        }
+                
+                
+                public function update( $id,Request $request){
+                    DB::table('tasks')->updateOrInsert(
+                        ['id' => $id, 'name' => $request] );
+                    return redirect()->route('tasks.welcome');
+                    
+                
+                     
+                        }
+
+                    
+    
+
+
+
 }
