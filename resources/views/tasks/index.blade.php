@@ -34,8 +34,8 @@
                                     @csrf
                                     
                                 
-                                    <button type="submit" class="btn btn-danger" >
-                                        <i class="fa fa-btn fa-trash"></i>up date
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fa fa-btn fa-plus"></i>up date
                                     </button>
                                 </form>
                             </div>
@@ -75,6 +75,15 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">
                                                 <i class="fa fa-btn fa-trash"></i>Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="edit/{{$task->id}}" method="GET">
+                                            @csrf
+                                        
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa fa-btn fa-trash"></i>EDIT
                                             </button>
                                         </form>
                                     </td>

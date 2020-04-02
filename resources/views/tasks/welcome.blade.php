@@ -69,7 +69,7 @@
                                             @csrf
                                         
                                             <button type="submit" class="btn btn-danger">
-                                                <i class="fa fa-btn fa-trash"></i>EDIT
+                                                EDIT
                                             </button>
                                         </form>
                                     </td>
