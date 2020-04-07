@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\support\Facades\DB;
+use App\Task;
 
 
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\DB;
 
 class TaskController extends Controller
 {
     public function index(){
-        $tasks =DB::table('tasks')->get();
+        //$tasks =DB::table('tasks')->get();
+        $tasks =Task::orderBy('created_at')->get();
    
      return view('tasks.welcome',compact('tasks'));
 
@@ -17,17 +19,23 @@ class TaskController extends Controller
     }
 
     public function show($id){
-        $task =DB::table('tasks')->find($id);
+        //$task =DB::table('tasks')->find($id);
+
+        $task=Task::where('id',$id) ->get();
         return view('tasks.show',compact('task'));
 
     }
 
     public function store(Request $request){
         
-        DB::table('tasks') ->insert([
-            'name'=> $request ->name ,'created_at'=>now(),
-            'updated_at'=> now(),
+        $request->validate([
+            'name'=>'required|min:10|max:255',
+
         ]);
+
+        $task=new Task();
+        $task->name=$request->name;
+        $task->save();
 
             return redirect()->back();
             
@@ -35,31 +43,31 @@ class TaskController extends Controller
 
 
     public function destroy($id){
-    
-     
-     DB::table('tasks')->where('id','=',$id)->delete();
-     return redirect()->back();
-
-
-    }
-
-    public function edit1($id){
+        //DB::table('tasks')->where('id','=',$id)->delete();
+        $task=Task::find($id);
         
-        $tasks =DB::table('tasks')->get();
-        $post =DB::table('tasks')->find($id);
+        $task->delete();
+       return redirect()->back();
+       }
+       public function edit($id){
+           
+        $task =DB::table('tasks')->where ('id','=',$id)->first();
    
-        return view('tasks.index',compact('tasks','post'));
-        }
-                
-                
-                public function update( $id,Request $request){
-                    DB::table('tasks')->updateOrInsert(
-                        ['id' => $id, 'name' => $request] );
-                    return redirect()->route('tasks.welcome');
-                    
-                
-                     
-                        }
+           $tasks =DB::table('tasks')->get();
+   
+           return view('tasks.edit',compact('tasks','task'));}
+
+
+
+       public function update(Request $request,$id){
+        $task = Task::find($id);
+        $task->update(['name' => $request->get('name')]);
+        return redirect('tasks.welcome'. $id);
+   
+           
+       }
+   
+       
 
                     
     
